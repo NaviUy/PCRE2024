@@ -15,9 +15,12 @@
     "sanity"
   ],
   "dependencies": {
+    "@portabletext/react": "^3.0.11",
     "@sanity/icons": "^2.11.0",
+    "@sanity/image-url": "^1.0.2",
     "@sanity/ui": "^2.0.0",
     "@sanity/vision": "^3.34.0",
+    "next-sanity": "^8.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
