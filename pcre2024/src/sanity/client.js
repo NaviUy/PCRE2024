@@ -14,5 +14,10 @@ export async function getHome(){
   return home
 }
 
+export async function getSpeakers(){
+  const speakers = await client.fetch('*[_type == "speakers"]|order(orderRank)')
+  return speakers
+}
+
 const builder = imageUrlBuilder(client)
 export const urlFor = (source) => builder.image(source)
