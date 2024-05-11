@@ -47,8 +47,8 @@ const Navbar = () => {
             </div>
             <div className={`flex flex-col items-center justify-center w-full md:w-[40%] xl:w-[20%] h-screen bg-white fixed z-[49] -translate-x-full transition-all duration-500 ${conditionalAnimation}`}>
                 <div className="text-3xl flex flex-col gap-4 text-black">
-                    <a className="hover:underline">Home</a>
-                    <a className="hover:underline">Speakers</a>
+                    <a className="hover:underline" href="#home">Home</a>
+                    <a className="hover:underline" href="#speakers">Speakers</a>
                     <a className="hover:underline">Venue</a>
                     <a className="hover:underline">Agenda</a>
                     <a className="hover:underline">Resident Panel</a>

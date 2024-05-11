@@ -71,7 +71,7 @@ export default function page() {
 
   return (
   <main>
-    <section className="w-screen min-h-screen" style={{ backgroundImage: `url(${homeData?.background_image?.url})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <section className="w-screen min-h-screen" style={{ backgroundImage: `url(${homeData?.background_image?.url})`, backgroundSize: 'cover', backgroundPosition: 'center' }} id="home">
       <div className={`pt-28 p-4 z-10 h-full w-full flex flex-col md:justify-center items-center transition-all duration-200 ${homeData ? 'opacity-100' : 'opacity-0'}`}>
         <div className={`content border w-full h-fit max-w-[928px] md:w-fit flex flex-col justify-center items-start py-8 md:px-8`}>
           <div className="px-4">
@@ -99,7 +99,7 @@ export default function page() {
         </div>
       </div>
     </section>
-    <section className="w-screen min-h-screen bg-[#022851]">
+    <section className="w-screen min-h-screen bg-[#022851]" id="speakers">
       <div className="w-full p-4 pt-8 flex flex-col">
         <h1 className="text-4xl">Speakers</h1>
         <div className="mt-4 md:ml-4">
