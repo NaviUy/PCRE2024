@@ -1,22 +1,23 @@
+// Navbar.js
 "use client";
 
 import { useState } from "react";
-
-
+import { useNavbar } from './NavbarContext';
 
 const Navbar = () => {
-    const [navActive, setNavActive] = useState(false)
+    const [navActive, setNavActive] = useState(false);
+    const { navItems } = useNavbar();
 
-    const conditionalClasses = navActive ? 'translate-y-6' : ''
-    const additionalConditionalClasses = navActive ? 'translate-x-0 w-12' : ''
-    const addtionalAdditionalConditionalClasses = navActive ? 'rotate-45' : ''
-    const addtionalAddtionalAddtionalConditionalClasses = navActive ? '-rotate-45' : ''
-    const conditionalAnimation = navActive ? '!translate-x-0' : ''
-    const overlayStyles = navActive ? 'md:block h-full opacity-50' : 'opacity-0  h-0'
+    const conditionalClasses = navActive ? 'translate-y-6' : '';
+    const additionalConditionalClasses = navActive ? 'translate-x-0 w-12' : '';
+    const additionalAdditionalConditionalClasses = navActive ? 'rotate-45' : '';
+    const additionalAdditionalAdditionalConditionalClasses = navActive ? '-rotate-45' : '';
+    const conditionalAnimation = navActive ? '!translate-x-0' : '';
+    const overlayStyles = navActive ? 'md:block h-full opacity-50' : 'opacity-0 h-0';
 
     const toggleConditionalClasses = () => {
-        setNavActive(!navActive)
-    }
+        setNavActive(!navActive);
+    };
 
     return (
         <>
@@ -36,8 +37,8 @@ const Navbar = () => {
                                 <div className={`bg-white h-[2px] w-7 transform transition-all duration-300 origin-left ${conditionalClasses}`}></div>
 
                                 <div className={`absolute items-center justify-between transform transition-all duration-500 top-2.5 -translate-x-10 flex w-0 ${additionalConditionalClasses}`}>
-                                    <div className={`absolute bg-black md:bg-white h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300 ${addtionalAdditionalConditionalClasses}`}></div>
-                                    <div className={`absolute bg-black md:bg-white h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300 ${addtionalAddtionalAddtionalConditionalClasses}`}></div>
+                                    <div className={`absolute bg-black md:bg-white h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300 ${additionalAdditionalConditionalClasses}`}></div>
+                                    <div className={`absolute bg-black md:bg-white h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300 ${additionalAdditionalAdditionalConditionalClasses}`}></div>
                                 </div>
                             </div>
                         </div>
@@ -47,18 +48,14 @@ const Navbar = () => {
             </div>
             <div className={`flex flex-col items-center justify-center w-full md:w-[40%] xl:w-[20%] h-screen bg-white fixed z-[49] -translate-x-full transition-all duration-500 ${conditionalAnimation}`}>
                 <div className="text-3xl flex flex-col gap-4 text-black">
-                    <a className="hover:underline" href="#home">Home</a>
-                    <a className="hover:underline" href="#speakers">Speakers</a>
-                    <a className="hover:underline">Venue</a>
-                    <a className="hover:underline">Agenda</a>
-                    <a className="hover:underline">Resident Panel</a>
-                    <a className="hover:underline">Organizer</a>
-                    <a className="hover:underline">Executive Team</a>
+                    {navItems.map((item, index) => (
+                        <a className="hover:underline" key={index} href={item.href}>{item.label}</a>
+                    ))}
                 </div>
             </div>
-            <div className={ `w-full overflow-hidden bg-black fixed z-[48] transition-opacity duration-500 ${overlayStyles}` } onClick={() => toggleConditionalClasses()}></div>
+            <div className={`w-full overflow-hidden bg-black fixed z-[48] transition-opacity duration-500 ${overlayStyles}`} onClick={() => toggleConditionalClasses()}></div>
         </>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;

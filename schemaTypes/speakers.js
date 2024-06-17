@@ -10,6 +10,11 @@ export const speakers = defineType({
     fields: [
         orderRankField({ type: "speakers" }),
         defineField({
+            name:"enable",
+            type: "boolean",
+            title: "Enable"
+        }),
+        defineField({
             name: "title",
             type: "string"
         }),

@@ -6,6 +6,11 @@ export const resident = defineType({
     type: "document",
     fields:[
         defineField({
+            name: "enable",
+            type: "boolean",
+            title: "Enable"
+        }),
+        defineField({
             name: "image",
             type: "image",
             options: {
@@ -28,7 +33,12 @@ export const resident = defineType({
         }),
         defineField({
             name: "bio",
-            type: "text"
+            type: "array",
+            of: [
+                {
+                    type: "block"
+                }
+            ]
         })
     ]
 })

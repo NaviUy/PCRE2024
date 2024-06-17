@@ -10,14 +10,20 @@
     "build": "sanity build",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
-    "dev:sanity": "sanity start",
+    "dev:sanity": "sanity dev",
     "dev:next": "cd pcre2024 && next dev"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@portabletext/react": "^3.0.11",
+    "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/icons": "^2.11.0",
     "@sanity/image-url": "^1.0.2",
     "@sanity/orderable-document-list": "^1.2.1",
