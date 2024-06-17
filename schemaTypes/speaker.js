@@ -6,6 +6,11 @@ export const speaker = defineType({
     type: "document",
     fields:[
         defineField({
+            name: "enable",
+            type: "boolean",
+            title: "Enable"
+        }),
+        defineField({
             name: "image",
             type: "image",
             options: {
@@ -24,6 +29,7 @@ export const speaker = defineType({
         }),
         defineField({
             name: "school",
+            title: "School / Program",
             type: "string"
         }),
         defineField({

@@ -7,6 +7,11 @@ export const member = defineType({
     type: "document",
     fields: [
         defineField({
+            name:"enable",
+            type: "boolean",
+            title: "Enable"
+        }),
+        defineField({
             name: "name",
             type: "string"
         }),
@@ -29,7 +34,12 @@ export const member = defineType({
         }),
         defineField({
             name: "bio",
-            type: "text",
+            type: "array",
+            of: [
+                {
+                    type: "block"
+                }
+            ]
         }),
         defineField({
             name: "linkedin",

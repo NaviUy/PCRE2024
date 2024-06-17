@@ -19,5 +19,20 @@ export async function getSpeakers(){
   return speakers
 }
 
+export async function getResidents(){
+  const residents = await client.fetch('*[_type == "residents"]')
+  return residents
+}
+
+export async function getOrganizers(){
+  const organizers = await client.fetch('*[_type == "organizers"]')
+  return organizers
+}
+
+export async function getAgenda(){
+  const agenda = await client.fetch('*[_type == "agenda"]|order(orderRank)')
+  return agenda
+}
+
 const builder = imageUrlBuilder(client)
 export const urlFor = (source) => builder.image(source)

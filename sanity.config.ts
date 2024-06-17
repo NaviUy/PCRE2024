@@ -16,8 +16,6 @@ export default defineConfig({
   dataset: 'production',
   plugins: [structureTool({
     structure: (S, context) => {
-      console.log(S)
-      console.log(context)
       return S.list().title('Content').items([
         S.documentTypeListItem('home'),
         orderableDocumentListDeskItem({
@@ -27,7 +25,13 @@ export default defineConfig({
           context
         }),
         S.documentTypeListItem('venue'),
-        S.documentTypeListItem('agenda'),
+        // S.documentTypeListItem('agenda'),
+        orderableDocumentListDeskItem({
+          title: "Agenda",
+          type: "agenda",
+          S,
+          context
+        }),
         S.documentTypeListItem('residents'),
         S.documentTypeListItem('organizers')
       ])

@@ -4,6 +4,7 @@ import "./globals.css";
 
 // components
 import Navbar from './components/Navbar.js'
+import { NavbarProvider } from "./components/NavbarContext";
 
 const inter = Inter({ subsets: ["latin"], display: 'swap' });
 const noto_sans = Noto_Sans({
@@ -24,8 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={noto_sans.className}>
-        <Navbar></Navbar>
-        {children}
+        <NavbarProvider>
+          <Navbar></Navbar>
+          {children}
+        </NavbarProvider>
       </body>
     </html>
   );

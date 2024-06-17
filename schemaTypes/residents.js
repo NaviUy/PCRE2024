@@ -7,6 +7,11 @@ export const residents = defineType({
     type: "document",
     fields: [
         defineField({
+            name:"enable",
+            type: "boolean",
+            title: "Enable"
+        }),
+        defineField({
             name: "title",
             type: "string"
         }),
