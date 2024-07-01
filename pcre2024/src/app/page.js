@@ -152,8 +152,8 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <Speakers speakerData={speakerData} />
       <Agenda agendaData={agendaData} />
+      <Speakers speakerData={speakerData} />
       <Residents residentsData={residentsData} />
       <Organizers organizers={organizersData} />
     </main>
