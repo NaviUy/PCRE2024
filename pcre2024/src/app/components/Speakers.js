@@ -33,7 +33,7 @@ const Speakers = ({speakerData}) => {
         enable &&
         <section className="w-screen bg-[#022851]" id="speakers">
         <div className="w-full p-4 pt-8 flex flex-col">
-          <h1 className="text-4xl">Speakers</h1>
+          <h1 className="text-4xl text-white">Speakers</h1>
           <div className="mt-4 md:m-4">
             {enabledSpeakerData.map((item, index) => (
               <div className="mt-4 md:mt-10" key={index}>

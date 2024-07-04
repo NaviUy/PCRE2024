@@ -9,6 +9,7 @@ import {
   getOrganizers,
   getAgenda,
   urlFor,
+  getVenue
 } from '../sanity/client'
 
 // components
@@ -16,6 +17,7 @@ import Residents from './components/Residents'
 import Agenda from './components/Agenda'
 import Organizers from './components/Organizers'
 import Speakers from './components/Speakers'
+import Venue from './components/Venue'
 
 const formatDate = (dateString) => {
   const months = [
@@ -58,6 +60,7 @@ export default function Page() {
   const [residentsData, setResidentsData] = useState(null)
   const [organizersData, setOrganizersData] = useState(null)
   const [agendaData, setAgendaData] = useState(null)
+  const [venueData, setVenueData] = useState(null)
 
   useEffect(() => {
     getHome()
@@ -85,6 +88,12 @@ export default function Page() {
       .catch(console.error)
 
     getAgenda().then(setAgendaData).catch(console.error)
+
+    getVenue().then((data) => {
+      let newData = data[0]
+      newData.imageUrl = urlFor(newData.image).url()
+      setVenueData(data[0])
+    }).catch(console.error)
   }, [])
 
   return (
@@ -153,6 +162,7 @@ export default function Page() {
         </div>
       </section>
       <Agenda agendaData={agendaData} />
+      <Venue venueData={venueData} />
       <Speakers speakerData={speakerData} />
       <Residents residentsData={residentsData} />
       <Organizers organizers={organizersData} />

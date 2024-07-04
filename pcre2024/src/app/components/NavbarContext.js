@@ -13,7 +13,12 @@ export const NavbarProvider = ({ children }) => {
   ]);
 
   const addToNav = (newItem) => {
-    setNavItems((prevItems) => [...prevItems, newItem]);
+    setNavItems((prevItems) => {
+      const updatedItems = [...prevItems, newItem];
+      // Ensure the items are ordered based on a predefined list
+      const order = ['Home', 'Agenda', 'Venue', 'Speakers', 'Residents', 'Organizers'];
+      return updatedItems.sort((a, b) => order.indexOf(a.label) - order.indexOf(b.label));
+    });
   };
 
   const removeFromNav = (itemToRemove) => {

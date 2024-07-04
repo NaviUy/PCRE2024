@@ -10,6 +10,10 @@ export const venue = defineType({
             type: "string"
         }),
         defineField({
+            name: "enable",
+            type: "boolean",
+        }),
+        defineField({
             name: "image",
             type: "image",
             fields: [
