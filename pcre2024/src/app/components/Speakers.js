@@ -3,16 +3,25 @@
 import { useEffect, useState } from 'react'
 import SpeakerCard from './SpeakerCard'
 import {useNavbar} from '../components/NavbarContext.js'
+import { getSpeakers } from '@/sanity/client'
 
-
-const Speakers = ({speakerData}) => {
+const Speakers = () => {
+    const [speakerData, setSpeakerData] = useState(null)
     const [enable, setEnable] = useState(false)
     const [enabledSpeakerData, setEnabledSpeakerData] = useState([])
     const {addToNav, removeFromNav} = useNavbar()
 
     useEffect(() => {
+        getSpeakers().then((data) => {
+            setSpeakerData(data)
+        }).catch((error) => {
+            console.error(error)
+        })
+    }, [])
+
+    useEffect(() => {
         const enabledSpeakerData = speakerData?.filter((speaker) => speaker.enable)
-        if(enabledSpeakerData.length > 0){
+        if(enabledSpeakerData?.length > 0){
             setEnabledSpeakerData(enabledSpeakerData)
             setEnable(true)
         } else {

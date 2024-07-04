@@ -1,23 +1,18 @@
 // page.js
 'use client'
 
-import {useEffect, useState} from 'react'
+import {useEffect, useState, Suspense, lazy} from 'react'
 import {
   getHome,
-  getSpeakers,
-  getResidents,
-  getOrganizers,
-  getAgenda,
   urlFor,
-  getVenue
 } from '../sanity/client'
 
 // components
-import Residents from './components/Residents'
-import Agenda from './components/Agenda'
-import Organizers from './components/Organizers'
-import Speakers from './components/Speakers'
-import Venue from './components/Venue'
+const Residents = lazy(() => import('./components/Residents'))
+const Agenda = lazy(() => import('./components/Agenda'))
+const Venue = lazy(() => import('./components/Venue'))
+const Organizers = lazy(() => import('./components/Organizers'))
+const Speakers = lazy(() => import('./components/Speakers'))
 
 const formatDate = (dateString) => {
   const months = [
@@ -56,11 +51,6 @@ const ordinal_suffix_of = (i) => {
 
 export default function Page() {
   const [homeData, setHomeData] = useState(null)
-  const [speakerData, setSpeakerData] = useState([])
-  const [residentsData, setResidentsData] = useState(null)
-  const [organizersData, setOrganizersData] = useState(null)
-  const [agendaData, setAgendaData] = useState(null)
-  const [venueData, setVenueData] = useState(null)
 
   useEffect(() => {
     getHome()
@@ -73,99 +63,102 @@ export default function Page() {
       })
       .catch(console.error)
 
-    getSpeakers().then(setSpeakerData).catch(console.error)
-
-    getResidents()
-      .then((data) => {
-        setResidentsData(data[0])
-      })
-      .catch(console.error)
-
-    getOrganizers()
-      .then((data) => {
-        setOrganizersData(data[0])
-      })
-      .catch(console.error)
-
-    getAgenda().then(setAgendaData).catch(console.error)
-
-    getVenue().then((data) => {
-      let newData = data[0]
-      newData.imageUrl = urlFor(newData.image).url()
-      setVenueData(data[0])
-    }).catch(console.error)
   }, [])
 
   return (
     <main>
-      <section
-        className="w-screen min-h-screen"
-        style={{
-          backgroundImage: `url(${homeData?.background_image?.url})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-        id="home"
-      >
-        <div
-          className={`pt-28 p-4 z-10 h-full w-full flex flex-col md:justify-center items-center transition-all duration-200 ${homeData ? 'opacity-100' : 'opacity-0'}`}
+      <Suspense fallback={<div className='w-screen h-screen flex justify-center items-center bg-[#022851]'>
+        <div class="loader"></div>
+      </div>}>
+        <section
+          className="w-screen min-h-screen"
+          style={{
+            backgroundImage: `url(${homeData?.background_image?.url})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+          id="home"
         >
           <div
-            className={`content border w-full h-fit max-w-[928px] md:w-fit flex flex-col justify-center items-start py-8 md:px-8`}
+            className={`pt-28 p-4 z-10 h-full w-full flex flex-col md:justify-center items-center transition-all duration-200 ${homeData ? 'opacity-100' : 'opacity-0'}`}
           >
-            <div className="px-4">
-              <h2 className="text-white">
-                <span className="bg-[#022851] text-[#FFBF00] p-2 font-semibold text-lg">
-                  {homeData?.subheading}
-                </span>
-              </h2>
-              <h1 className="text-white text-3xl md:text-5xl lg:text-7xl font-bold mt-4">
-                {homeData?.heading}
-              </h1>
+            <div
+              className={`content border w-full h-fit max-w-[928px] md:w-fit flex flex-col justify-center items-start py-8 md:px-8`}
+            >
+              <div className="px-4">
+                <h2 className="text-white">
+                  <span className="bg-[#022851] text-[#FFBF00] p-2 font-semibold text-lg">
+                    {homeData?.subheading}
+                  </span>
+                </h2>
+                <h1 className="text-white text-3xl md:text-5xl lg:text-7xl font-bold mt-4">
+                  {homeData?.heading}
+                </h1>
+              </div>
+              <div className="mt-10 px-4 w-full flex justify-center items-center">
+                <a
+                  className="border py-2 px-4 font-semibold transition-all text-white hover:bg-white hover:text-black"
+                  href={homeData?.cta_action}
+                >
+                  {homeData?.cta_text}
+                </a>
+              </div>
             </div>
-            <div className="mt-10 px-4 w-full flex justify-center items-center">
-              <a
-                className="border py-2 px-4 font-semibold transition-all text-white hover:bg-white hover:text-black"
-                href={homeData?.cta_action}
-              >
-                {homeData?.cta_text}
-              </a>
+            <div className="w-full md:flex max-w-[928px] md:justify-center md:items-center">
+              <div className="content rounded-lg w-full h-fit lg:w-full md:h-full md:justify-start flex flex-col justify-center items-start py-8 md:px-8">
+                <div className="text-lg font-bold self-start bg-[#022851] text-[#FFBf00] p-2">
+                  WHEN?
+                </div>
+                <div className="text-white text-md font-semibold mt-4 border w-full md:w-full py-4">
+                  <p className="ml-4 md:mr-4">
+                    Starts: {homeData?.start_date_object?.month}{' '}
+                    {ordinal_suffix_of(homeData?.start_date_object?.day)},{' '}
+                    {homeData?.start_date_object?.year}
+                  </p>
+                  <p className="ml-4 md:mr-4">
+                    Ends: {homeData?.end_date_object?.month}{' '}
+                    {ordinal_suffix_of(homeData?.end_date_object?.day)},{' '}
+                    {homeData?.end_date_object?.year}
+                  </p>
+                </div>
+              </div>
+              <div className="content rounded-lg w-full h-fit max-w-[928px] md:w-[50%] md:h-full md:justify-start flex flex-col justify-center items-start py-8 md:px-8">
+                <div className="text-lg font-bold self-start bg-[#022851] text-[#FFBf00] p-2">
+                  WHERE?
+                </div>
+                <div className="text-white text-md font-semibold mt-4 border w-full py-4 md:w-full md:h-full">
+                  <p className="ml-4 md:mr-4">{homeData?.location}</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="w-full md:flex max-w-[928px] md:justify-center md:items-center">
-            <div className="content rounded-lg w-full h-fit lg:w-full md:h-full md:justify-start flex flex-col justify-center items-start py-8 md:px-8">
-              <div className="text-lg font-bold self-start bg-[#022851] text-[#FFBf00] p-2">
-                WHEN?
-              </div>
-              <div className="text-white text-md font-semibold mt-4 border w-full md:w-full py-4">
-                <p className="ml-4 md:mr-4">
-                  Starts: {homeData?.start_date_object?.month}{' '}
-                  {ordinal_suffix_of(homeData?.start_date_object?.day)},{' '}
-                  {homeData?.start_date_object?.year}
-                </p>
-                <p className="ml-4 md:mr-4">
-                  Ends: {homeData?.end_date_object?.month}{' '}
-                  {ordinal_suffix_of(homeData?.end_date_object?.day)},{' '}
-                  {homeData?.end_date_object?.year}
-                </p>
-              </div>
-            </div>
-            <div className="content rounded-lg w-full h-fit max-w-[928px] md:w-[50%] md:h-full md:justify-start flex flex-col justify-center items-start py-8 md:px-8">
-              <div className="text-lg font-bold self-start bg-[#022851] text-[#FFBf00] p-2">
-                WHERE?
-              </div>
-              <div className="text-white text-md font-semibold mt-4 border w-full py-4 md:w-full md:h-full">
-                <p className="ml-4 md:mr-4">{homeData?.location}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <Agenda agendaData={agendaData} />
-      <Venue venueData={venueData} />
-      <Speakers speakerData={speakerData} />
-      <Residents residentsData={residentsData} />
-      <Organizers organizers={organizersData} />
+        </section>
+      </Suspense>
+      <Suspense fallback={<div className='w-screen h-[500px] bg-[#022851] flex justify-center items-center'>
+        <div class="loader"></div>
+      </div>}>
+        <Agenda />
+      </Suspense>
+      <Suspense fallback={<div className='w-screen h-[500px] bg-[#022851] flex justify-center items-center'>
+        <div class="loader"></div>
+      </div>}>
+        <Venue />
+      </Suspense>
+      <Suspense fallback={<div className='w-screen h-[500px] bg-[#022851] flex justify-center items-center'>
+        <div class="loader"></div>
+      </div>}>
+        <Speakers />
+      </Suspense>
+      <Suspense fallback={<div className='w-screen h-[500px] bg-[#022851] flex justify-center items-center'>
+        <div class="loader"></div>
+      </div>}>
+        <Residents />
+      </Suspense>
+      <Suspense fallback={<div className='w-screen h-[500px] bg-[#022851] flex justify-center items-center'>
+        <div class="loader"></div>
+      </div>}>
+        <Organizers />
+      </Suspense>
     </main>
   )
 }

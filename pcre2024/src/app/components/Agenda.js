@@ -3,11 +3,17 @@
 import { useEffect, useState } from "react"
 import AgendaLines from "./AgendaLines"
 import {useNavbar} from '../components/NavbarContext.js'
+import { getAgenda } from '@/sanity/client'
 
-const Agenda = ({agendaData}) => {
+const Agenda = () => {
+  const [agendaData, setAgendaData] = useState(null)
   const [enable, setEnable] = useState(false)
   const [enabledAgendas, setEnabledAgendas] = useState([])
   const {addToNav, removeFromNav} = useNavbar()
+
+  useEffect(() => {
+    getAgenda().then(setAgendaData).catch(console.error)
+  }, [])
 
   useEffect(() =>{
     const enabledAgendas = agendaData?.filter((agenda) => agenda.enable)

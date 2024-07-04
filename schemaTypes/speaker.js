@@ -14,7 +14,14 @@ export const speaker = defineType({
             name: "image",
             type: "image",
             options: {
-                hotspot: true
+                hotspot: true,
+                metadata: [
+                    'blurhash',   // Default: included
+                    'lqip',       // Default: included
+                    'palette',    // Default: included
+                    'exif',       // Default: not included
+                    'location',   // Default: not included
+                ]
             },
             fields: [
                 defineField({

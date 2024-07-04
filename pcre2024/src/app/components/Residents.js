@@ -1,14 +1,23 @@
 'use client'
 
 import {useEffect, useState} from 'react'
-import {urlFor} from '../../sanity/client'
+import {urlFor, getResidents} from '../../sanity/client'
 import BlockContent from '@sanity/block-content-to-react'
 import {useNavbar} from '../components/NavbarContext.js'
 
-const Residents = ({residentsData}) => {
+const Residents = () => {
+  const [residentsData, setResidentsData] = useState(null)
   const [enable, setEnable] = useState(false)
   const [residents, setResidents] = useState([])
   const {addToNav, removeFromNav} = useNavbar()
+
+  useEffect(() => {
+    getResidents()
+    .then((data) => {
+      setResidentsData(data[0])
+    })
+    .catch(console.error)
+  }, [])
 
   useEffect(() => {
     if (residentsData?.enable) {
