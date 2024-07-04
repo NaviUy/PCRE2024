@@ -35,7 +35,7 @@ const AgendaLines = ({agenda}) => {
           return (
             <div className="w-full bg-white text-black" key={index}>
               <div className="m-4 p-4 flex gap-4">
-                <h3 className="font-semibold min-w-[50px]">{item.time}</h3>
+                <h3 className="font-semibold min-w-[50px] text-right">{item.time}</h3>
                 <div className="flex flex-col border-l-2 pl-4">
                   <h3 className="font-semibold">{item.title}</h3>
                   {item.description && (
