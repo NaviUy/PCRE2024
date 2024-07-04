@@ -34,5 +34,10 @@ export async function getAgenda(){
   return agenda
 }
 
+export async function getVenue(){
+  const venue = await client.fetch('*[_type == "venue"]')
+  return venue
+}
+
 const builder = imageUrlBuilder(client)
 export const urlFor = (source) => builder.image(source)

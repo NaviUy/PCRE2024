@@ -49,7 +49,7 @@ const Navbar = () => {
             <div className={`flex flex-col items-center justify-center w-full md:w-[40%] xl:w-[20%] h-screen bg-white fixed z-[49] -translate-x-full transition-all duration-500 ${conditionalAnimation}`}>
                 <div className="text-3xl flex flex-col gap-4 text-black">
                     {navItems.map((item, index) => (
-                        <a className="hover:underline" key={index} href={item.href}>{item.label}</a>
+                        <a className="hover:underline" key={index} href={item.href} onClick={() => {toggleConditionalClasses()}}>{item.label}</a>
                     ))}
                 </div>
             </div>
