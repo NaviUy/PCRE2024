@@ -4,6 +4,7 @@ import {faLinkedin, faXTwitter} from '@fortawesome/free-brands-svg-icons'
 import {faEarthAmerica} from '@fortawesome/free-solid-svg-icons'
 import BlockContent from '@sanity/block-content-to-react'
 import {urlFor} from '../../sanity/client'
+import Image from 'next/image'
 
 const MemberCard = ({member, index}) => {
   const getFullUrl = (url) => {
@@ -15,11 +16,14 @@ const MemberCard = ({member, index}) => {
   return (
     <div className="p-4 bg-white text-black flex flex-col md:flex-row" key={index}>
       <div className="min-w-[100px] h-[100px] self-center">
-        <img
+        <Image
           className="w-[100px] h-[100px] self-center object-cover rounded-full"
           src={urlFor(member.image).url()}
           alt={member.name}
-        />
+          width={100}
+          height={100}
+          placeholder="blur"
+          blurDataURL={member?.image?.asset?.metadata?.lqip} />
       </div>
       <div className="mt-4 flex flex-col md:flex-grow md:ml-8">
         <h3 className="text-lg self-center font-bold text-center">{member.name}</h3>

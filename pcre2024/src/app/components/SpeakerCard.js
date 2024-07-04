@@ -2,13 +2,14 @@
 
 import {useEffect, useState} from 'react'
 import {urlFor} from '../../sanity/client'
+import Image from 'next/image'
 
 const SpeakerCard = ({speakerData}) => {
   const [enabledSpeakers, setEnabledSpeakers] = useState([])
 
   useEffect(() => {
     const enabledSpeakers = speakerData?.filter((speaker) => speaker.enable)
-    if (enabledSpeakers.length > 0) {
+    if (enabledSpeakers?.length > 0) {
       setEnabledSpeakers(enabledSpeakers)
     }
   }, [speakerData])
@@ -17,11 +18,7 @@ const SpeakerCard = ({speakerData}) => {
       {enabledSpeakers.map((speaker, index) => (
         <div className="p-4 bg-white text-black flex flex-col" key={index}>
           <div className="w-[100px] h-[100px] self-center">
-            <img
-              className="w-full h-full object-cover rounded-full"
-              src={urlFor(speaker.image).url()}
-              alt={speaker.name}
-            />
+            <Image className="w-full h-full object-cover rounded-full" src={urlFor(speaker.image).url()} alt={speaker.name} width={100} height={100} placeholder='blur' blurDataURL={speaker.image.asset.metadata.lqip} />
           </div>
           <div className="mt-4 flex flex-col">
             <h3 className="text-lg self-center font-bold text-center">{speaker.name}</h3>

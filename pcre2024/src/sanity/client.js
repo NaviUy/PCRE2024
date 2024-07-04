@@ -10,32 +10,111 @@ export const client = createClient({
 })
 
 export async function getHome(){
+  console.log("Fetching home...")
   const home = await client.fetch('*[_type == "home"]')
   return home
 }
 
 export async function getSpeakers(){
-  const speakers = await client.fetch('*[_type == "speakers"]|order(orderRank)')
+  console.log("Fetching speakers...")
+  const query = `
+  *[_type == "speakers"]|order(orderRank) {
+    _id,
+    enable,
+    title,
+    speakers[]{
+      _key,
+      _type,
+      name,
+      bio,
+      school,
+      subtitle,
+      enable,
+      image {
+        asset->{
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt
+      }
+    }
+  }
+`
+  const speakers = await client.fetch(query)
   return speakers
 }
 
 export async function getResidents(){
+  console.log("Fetching residents...")
   const residents = await client.fetch('*[_type == "residents"]')
   return residents
 }
 
 export async function getOrganizers(){
-  const organizers = await client.fetch('*[_type == "organizers"]')
+  console.log("Fetching organizers...")
+  const query = `
+    *[_type == "organizers"]{
+      _id,
+      enable,
+      title,
+      description,
+      members[]{
+        _key,
+        _type,
+        name,
+        bio,
+        role,
+        enable,
+        image {
+          asset->{
+            _id,
+            url,
+            metadata {
+              lqip
+            }
+          },
+          alt
+        },
+        twitter,
+        linkedin,
+        personal
+      }
+    }
+  `
+  const organizers = await client.fetch(query)
+  console.log(organizers)
   return organizers
 }
 
 export async function getAgenda(){
+  console.log("Fetching agenda...")
   const agenda = await client.fetch('*[_type == "agenda"]|order(orderRank)')
   return agenda
 }
 
 export async function getVenue(){
-  const venue = await client.fetch('*[_type == "venue"]')
+  console.log("Fetching venue...")
+  const query = `
+    *[_type == "venue"]{
+      _id,
+      enable,
+      title,
+      image {
+        asset->{
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt
+      }
+    }
+  `
+  const venue = await client.fetch(query)
   return venue
 }
 
