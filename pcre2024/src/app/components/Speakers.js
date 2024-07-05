@@ -46,7 +46,7 @@ const Speakers = () => {
           <div className="mt-4 md:m-4">
             {enabledSpeakerData.map((item, index) => (
               <div className="mt-4 md:mt-10" key={index}>
-                <h2 className="text-xl">{item.title}</h2>
+                <h2 className="text-xl text-white">{item.title}</h2>
                 <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 md:flex-wrap mt-4">
                   <SpeakerCard speakerData={item.speakers} />
                 </div>
