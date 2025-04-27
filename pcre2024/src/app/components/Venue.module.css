@@ -1,0 +1,37 @@
+/* Venue.module.css */
+
+.venueSection {
+    background-color: #022851;
+  }
+  
+  .parallaxContainer {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+  }
+  
+  .overlay {
+    height: 500px;
+  }
+  
+  .parallaxImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 500px;
+    background-attachment: fixed;
+    background-position: center center; /* Adjust position to show more of the image */
+    background-repeat: no-repeat;
+    background-size: cover; /* Try contain or specific dimensions if needed */
+  }
+  
+  /* Try different background-size options */
+  .background-size-contain .parallaxImage {
+    background-size: contain; /* This will ensure the whole image fits within the div */
+  }
+  
+  .background-size-custom .parallaxImage {
+    background-size: 120% auto; /* This will make the image slightly larger */
+  }
+  
